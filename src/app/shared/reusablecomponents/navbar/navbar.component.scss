@@ -1,0 +1,19 @@
+.navbar {
+  ul {
+    li {
+      cursor: pointer;
+    }
+  }
+}
+
+.navbar-right {
+  .icons {
+    width: 20px;
+    cursor: pointer;
+  }
+}
+
+
+.navbar-profile:hover .dropdown {
+  display: block;
+}

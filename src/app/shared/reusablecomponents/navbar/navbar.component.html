@@ -1,15 +1,16 @@
 <div
-  class="navbar w-full py-4 px-[6%] flex justify-between fixed text-neutral-200 bg-black z-10 text-sm"
+  class="navbar w-full py-4 px-[6%] flex justify-between fixed text-neutral-200 z-10 text-sm bg-black"
 >
   <div class="navbar-left flex items-center gap-11">
     <img src="../../../../assets/logo.png" alt="logo" class="w-24" />
     <ul class="flex gap-5">
-      <li>Home</li>
-      <li>TV Shows</li>
-      <li>Movies</li>
-      <li>New & Popular</li>
-      <li>My List</li>
-      <li>Browse by Languages</li>
+      @for (item of navList; track $index){
+      <li
+        class="text-neutral-200 cursor-pointer text-sm font-extralight hover:text-gray-400 transition-[1s]"
+      >
+        {{ item }}
+      </li>
+      }
     </ul>
   </div>
   <div class="navbar-right flex gap-5 items-center">

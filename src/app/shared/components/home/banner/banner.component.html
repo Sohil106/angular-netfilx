@@ -1,0 +1,29 @@
+<img [src]="bannerMovie.image" class="h-full w-screen absolute" alt="banner" />
+<div class="h-screen w-full bg-white">
+  <div
+    class="w-full h-full pt-[20%] px-24 absolute text-white bg-gradient-to-r from-black first-letter:"
+  >
+    <h1 class="text-6xl font-bold">{{ bannerMovie.name }}</h1>
+    <p class="inline-block py-6 text-xl w-1/4 flex-wrap">
+      {{ bannerMovie.overview | description : 200 }}
+    </p>
+    <div>
+      <button
+        class="bg-white text-black py-2 px-10 text-xl rounded-lg hover:bg-opacity-70 transition-[3s]"
+      >
+        <span class="flex items-center gap-2">
+          <ng-icon name="featherPlay"></ng-icon>
+          <span>Play</span>
+        </span>
+      </button>
+      <button
+        class="mx-2 bg-gray-500 text-white py-2 px-10 text-xl bg-opacity-50 rounded-lg"
+      >
+        <span class="flex items-center gap-2">
+          <ng-icon name="featherInfo"></ng-icon>
+          <span>More Info</span>
+        </span>
+      </button>
+    </div>
+  </div>
+</div>

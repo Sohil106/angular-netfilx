@@ -1,0 +1,31 @@
+<div class="container px-20 mt-14 mb-20">
+  <p class="font-semibold text-2xl my-3 ml-3">{{ title }}</p>
+  <div #sliderContainer class="swiper-container overflow-x-auto w-screen">
+    <div class="swiper-wrapper flex">
+      @for(movie of videoContents; track $index){
+      <div
+        class="swiper-slide relative"
+        (mouseenter)="setHoverMovie(movie)"
+        (mouseleave)="cleatHoverMovie()"
+        (click)="getSelectedMovie(movie)"      >
+        <img [src]="movie.image" alt="" class="min-w-full min-h-full rounded" />
+        @if(movie.name == selectedContent){
+        <div class="desc p-2" @fade>
+          <span class="text-base flex flex-wrap font-bold">{{
+            movie.name
+          }}</span>
+          <p class="overview text-xs my-3">
+            {{ movie.overview | description : 120 }}
+          </p>
+          <div class="py-3 absolute w-[90%] bottom-1">
+            <p class="text-xs flex justify-between items-center">
+              <ng-icon name="featherPlay"></ng-icon>
+            </p>
+          </div>
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </div>
+</div>

@@ -44,10 +44,17 @@ export class MovieModalComponent {
   @ViewChild('progressBar') progressBar!: ElementRef;
   isPaused: boolean = false;
   isMuted: boolean = true;
-  isLiked: boolean = false;
 
   cardService = inject(CardsService);
 
+  likedMovieIds: Set<number> = new Set<number>();
+
+  constructor() {
+    this.cardService.likedMovieIds$.subscribe((likedMovieIds: any) => {
+      this.likedMovieIds = likedMovieIds;
+    });
+  }
+  isLiked: boolean = false;
   setVolume() {
     this.videoPlayer.nativeElement.volume = parseInt(
       this.volumeBar.nativeElement.value

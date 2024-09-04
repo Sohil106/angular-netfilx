@@ -7,6 +7,8 @@ import { Subject } from 'rxjs';
 export class CardsService {
   bannerMovie$: Subject<any> = new Subject<any>();
   likedMovie$: Subject<any> = new Subject<any>();
+
+  likedMovieIds$: Subject<Set<number>> = new Subject<Set<number>>();
   constructor() {}
 
   cards_data = [

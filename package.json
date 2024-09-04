@@ -22,6 +22,7 @@
     "@angular/router": "^18.2.0",
     "@ng-icons/core": "^29.5.0",
     "@ng-icons/feather-icons": "^29.5.0",
+    "@ng-icons/font-awesome": "^29.5.0",
     "@ng-icons/material-icons": "^29.5.0",
     "rxjs": "~7.8.0",
     "swiper": "^11.1.12",

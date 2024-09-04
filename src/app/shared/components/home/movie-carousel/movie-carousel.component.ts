@@ -3,22 +3,36 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  inject,
   Input,
   OnInit,
   ViewChild,
 } from '@angular/core';
 import { NgIconComponent, provideIcons } from '@ng-icons/core';
 import { featherPlay } from '@ng-icons/feather-icons';
-import Swiper from 'swiper';
 import { DescriptionPipe } from '../../../pipes/description.pipe';
 import { animate, style, transition, trigger } from '@angular/animations';
 import { FormsModule } from '@angular/forms';
 import { CardsService } from '../../../../core/services/cards.service';
 
+import { MatDialog } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MovieModalComponent } from '../movie-modal/movie-modal.component';
+
+export interface DialogData {
+  animal: 'panda' | 'unicorn' | 'lion';
+}
+
 @Component({
   selector: 'app-movie-carousel',
   standalone: true,
-  imports: [FormsModule, NgIconComponent, CommonModule, DescriptionPipe],
+  imports: [
+    FormsModule,
+    NgIconComponent,
+    CommonModule,
+    DescriptionPipe,
+    MatButtonModule,
+  ],
   providers: [provideIcons({ featherPlay })],
   templateUrl: './movie-carousel.component.html',
   styleUrl: './movie-carousel.component.scss',
@@ -36,7 +50,7 @@ export class MovieCarouselComponent implements OnInit {
   @Input() title: string = '';
   @ViewChild('sliderContainer', { static: true }) sliderContainer!: ElementRef;
   selectedContent: string | null = null;
-  selectedMovie: any = '';
+  selectedMovieData: any = {};
 
   constructor(private cardService: CardsService) {}
 
@@ -49,10 +63,30 @@ export class MovieCarouselComponent implements OnInit {
       }
     );
   }
+  dialog = inject(MatDialog);
+
+  openDialog(movie: any) {
+    this.dialog.open(MovieModalComponent, {
+      data: movie,
+      // height: '90vh',
+      // width: '60vw',
+      maxHeight: '90vh',
+      maxWidth: '60vw',
+      panelClass: 'custom-dialog-container',
+    });
+  }
 
   getSelectedMovie(movie: any) {
     this.cardService.bannerMovie$.next(movie);
+    this.selectedMovieData = movie;
   }
+  setHoverMovie(movie: any) {
+    this.selectedContent = movie.name;
+  }
+  cleatHoverMovie() {
+    this.selectedContent = null;
+  }
+
   // ngAfterViewInit(): void {
   //   this.initSwiper();
   // }
@@ -97,11 +131,4 @@ export class MovieCarouselComponent implements OnInit {
   //     },
   //   });
   // }
-
-  setHoverMovie(movie: any) {
-    this.selectedContent = movie.name;
-  }
-  cleatHoverMovie() {
-    this.selectedContent = null;
-  }
 }

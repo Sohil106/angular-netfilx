@@ -1,0 +1,131 @@
+<div class="movie w-full">
+  <div class="relative h-[100%] model-video-content bg-[#181818]">
+    <video
+      controls
+      autoPlay
+      loop
+      [muted]="isMuted"
+      class="w-[100%] object-cover control videotag"
+      #player
+      (timeupdate)="updateProgressBar()"
+    >
+      <source [src]="data.video" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+    <div class="w-full flex justify-center mt-2">
+      <progress
+        id="progress-bar"
+        (click)="seek($event)"
+        class=""
+        min="0"
+        max="100"
+        value="1"
+        #progressBar
+      >
+        0% played
+      </progress>
+    </div>
+    <div class="flex justify-between ms-10 me-7 mt-2">
+      <div class="flex items-center gap-3">
+        <div>
+          <button
+            class="btn text-black bg-white rounded border-2 px-4 py-1 outline-none flex items-center gap-2"
+            (click)="playPauseVideo()"
+          >
+            @if(isPaused){
+            <ng-icon name="featherPlay" class="text-2xl"></ng-icon>
+            <span class="font-semibold text-xl">play</span>
+            } @else {
+            <ng-icon name="featherPause" class="text-2xl"></ng-icon>
+            <span class="font-semibold text-xl">pause</span>
+            }
+          </button>
+        </div>
+        <div>
+          <button
+            class="text-white rounded-full border-2 p-3 flex items-center"
+            (click)="toggleLike(data)"
+          >
+            @if(isLiked){
+            <ng-icon name="faSolidThumbsUp" class="text-2xl"></ng-icon>
+            } @else {
+            <ng-icon name="faThumbsUp" class="text-2xl"></ng-icon>
+            }
+          </button>
+        </div>
+        <div>
+          <button
+            class="text-white rounded-full border-2 p-2 flex items-center"
+          >
+            <ng-icon name="featherCheck" class="text-2xl"></ng-icon>
+          </button>
+        </div>
+        <div>
+          <input
+            type="range"
+            class=""
+            (change)="setVolume()"
+            id="volume-bar"
+            title="volume"
+            min="0"
+            max="1"
+            step="0.1"
+            value="1"
+            #volumeBar
+          />
+        </div>
+      </div>
+      <div class="me-5">
+        <button
+          class="text-white rounded-full border-2 p-2 flex items-center"
+          (click)="muteUnmuteVolume()"
+        >
+          @if(isMuted){
+          <ng-icon name="featherVolumeX" class="text-2xl"></ng-icon>
+          } @else {<ng-icon name="featherVolume2" class="text-2xl"></ng-icon>}
+        </button>
+      </div>
+    </div>
+
+    <div class="md:grid grid-cols-3 text-white py-5">
+      <div class="col-span-2 ms-10 me-7">
+        <p>
+          <span class="green-span-content text-green-500">92 % Match</span> 2021
+          &nbsp;
+          <span
+            class="btn text-white border-2 border-white py-0.5 px-1 bg-transparent rounded"
+          >
+            12+
+          </span>
+          &nbsp; 2 &nbsp;
+          <span
+            class="btn cursor-text border-2 text-white border-white py-0 px-1 bg-transparent rounded"
+          >
+            HD
+          </span>
+        </p>
+        <h5 class="text-2xl mt-2">{{ data.name }}</h5>
+        <h4 class="text-3xl mt-4">Teil 1:Fig. 1 , Kapitel 1 "</h4>
+        <p class="mt-4">
+          {{ data.overview }}
+        </p>
+      </div>
+      <div
+        class="md:ms-0 md:mt-0 mt-4 ms-10 me-7 text-white flex flex-col gap-2"
+      >
+        <p>
+          <span class="text-[#717171]">Besetzung:</span> Omar Sy,Ludivine
+          Sagnier,Clotilde Hesme, mehr
+        </p>
+        <p>
+          <span class="text-[#717171]">Genres:</span>Krimiserien, Franzosisch,
+          Serien nach Buchvorlage
+        </p>
+        <p>
+          <span class="text-[#717171]">Diese Serie ist: </span>
+          Aufregend
+        </p>
+      </div>
+    </div>
+  </div>
+</div>

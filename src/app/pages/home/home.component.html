@@ -16,3 +16,9 @@
   [videoContents]="popularMovies"
   [title]="'Top Pics for You'"
 />
+
+<app-movie-carousel
+  [videoContents]="likedMovies"
+  [title]="'Liked Movies'"
+  *ngIf="likedMovies.length"
+/>

@@ -17,11 +17,12 @@ import { faThumbsUp } from '@ng-icons/font-awesome/regular';
 import { faSolidThumbsUp } from '@ng-icons/font-awesome/solid';
 
 import { CardsService } from '../../../../core/services/cards.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-movie-modal',
   standalone: true,
-  imports: [MatDialogTitle, MatDialogContent, NgIconComponent],
+  imports: [MatDialogTitle, MatDialogContent, NgIconComponent, CommonModule],
   providers: [
     provideIcons({
       featherPlay,
@@ -44,22 +45,33 @@ export class MovieModalComponent {
   @ViewChild('progressBar') progressBar!: ElementRef;
   isPaused: boolean = false;
   isMuted: boolean = true;
+  isLiked: boolean = false;
+  isWatched: boolean = false;
 
   cardService = inject(CardsService);
 
-  likedMovieIds: Set<number> = new Set<number>();
-
   constructor() {
-    this.cardService.likedMovieIds$.subscribe((likedMovieIds: any) => {
-      this.likedMovieIds = likedMovieIds;
-    });
-  }
-  isLiked: boolean = false;
-  setVolume() {
-    this.videoPlayer.nativeElement.volume = parseInt(
-      this.volumeBar.nativeElement.value
+    // console.log(this.data);
+    // console.log(this.data.id);
+    // console.log(this.cardService.likedMovies);
+    // console.log(
+    //   this.cardService.likedMovies.some((movie) => {
+    //     movie.id == this.data.id;
+    //   })
+    // );
+    this.isLiked = this.cardService.likedMovies.some(
+      (movie) => movie.id == this.data.id
+    );
+
+    this.isWatched = this.cardService.watchedMovies.some(
+      (movie) => movie.id == this.data.id
     );
   }
+  // setVolume() {
+  //   this.videoPlayer.nativeElement.volume = parseInt(
+  //     this.volumeBar.nativeElement.value
+  //   );
+  // }
 
   // Update the progress bar
   updateProgressBar() {
@@ -102,5 +114,10 @@ export class MovieModalComponent {
   toggleLike(data: any) {
     this.cardService.likedMovie$.next(data);
     this.isLiked = !this.isLiked;
+  }
+
+  toggleWatch(data: any) {
+    this.cardService.watchedMovie$.next(data);
+    this.isWatched = !this.isWatched;
   }
 }

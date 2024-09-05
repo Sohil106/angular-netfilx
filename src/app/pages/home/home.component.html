@@ -18,7 +18,14 @@
 />
 
 <app-movie-carousel
-  [videoContents]="likedMovies"
+  [videoContents]="cardService.likedMovies"
   [title]="'Liked Movies'"
-  *ngIf="likedMovies.length"
+  *ngIf="cardService.likedMovies.length"
 />
+
+<app-movie-carousel
+  [videoContents]="cardService.watchedMovies"
+  [title]="'Watched Movies'"
+  *ngIf="cardService.watchedMovies.length"
+/>
+

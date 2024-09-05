@@ -25,7 +25,7 @@
         0% played
       </progress>
     </div>
-    <div class="flex justify-between ms-10 me-7 mt-2">
+    <div class="flex justify-between ms-10 md:me-7 me-2 mt-2">
       <div class="flex items-center gap-3">
         <div>
           <button
@@ -43,24 +43,30 @@
         </div>
         <div>
           <button
-            class="text-white rounded-full border-2 p-3 flex items-center"
+            class="text-white rounded-full border-2 p-2.5 flex items-center"
             (click)="toggleLike(data)"
           >
             @if(isLiked){
-            <ng-icon name="faSolidThumbsUp" class="text-2xl"></ng-icon>
+            <ng-icon name="faSolidThumbsUp" class="text-xl"></ng-icon>
             } @else {
-            <ng-icon name="faThumbsUp" class="text-2xl"></ng-icon>
+            <ng-icon name="faThumbsUp" class="text-xl"></ng-icon>
             }
           </button>
         </div>
         <div>
           <button
+            (click)="toggleWatch(data)"
             class="text-white rounded-full border-2 p-2 flex items-center"
+            [ngClass]="isWatched ? 'border-cyan-400' : ''"
           >
-            <ng-icon name="featherCheck" class="text-2xl"></ng-icon>
+            <ng-icon
+              name="featherCheck"
+              class="text-2xl"
+              [ngClass]="isWatched ? 'text-cyan-400' : ''"
+            ></ng-icon>
           </button>
         </div>
-        <div>
+        <!-- <div>
           <input
             type="range"
             class=""
@@ -73,9 +79,9 @@
             value="1"
             #volumeBar
           />
-        </div>
+        </div> -->
       </div>
-      <div class="me-5">
+      <div class="md:me-5">
         <button
           class="text-white rounded-full border-2 p-2 flex items-center"
           (click)="muteUnmuteVolume()"

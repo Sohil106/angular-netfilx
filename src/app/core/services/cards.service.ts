@@ -7,9 +7,33 @@ import { Subject } from 'rxjs';
 export class CardsService {
   bannerMovie$: Subject<any> = new Subject<any>();
   likedMovie$: Subject<any> = new Subject<any>();
+  watchedMovie$: Subject<any> = new Subject<any>();
+  likedMovies: any[] = [];
+  watchedMovies: any[] = [];
 
-  likedMovieIds$: Subject<Set<number>> = new Subject<Set<number>>();
-  constructor() {}
+  // likedMovieIds$: Subject<Set<number>> = new Subject<Set<number>>();
+  constructor() {
+    this.likedMovie$.subscribe((likedMovie: any) => {
+      const index = this.likedMovies.findIndex(
+        (movie) => movie.id === likedMovie.id
+      );
+      if (index > -1) {
+        this.likedMovies.splice(index, 1);
+      } else {
+        this.likedMovies.push(likedMovie);
+      }
+    });
+    this.watchedMovie$.subscribe((watchedMovie: any) => {
+      const index = this.watchedMovies.findIndex(
+        (movie) => movie.id === watchedMovie.id
+      );
+      if (index > -1) {
+        this.watchedMovies.splice(index, 1);
+      } else {
+        this.watchedMovies.push(watchedMovie);
+      }
+    });
+  }
 
   cards_data = [
     {

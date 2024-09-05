@@ -3,6 +3,7 @@ import {
   AfterViewInit,
   Component,
   ElementRef,
+  HostListener,
   inject,
   Input,
   OnInit,
@@ -52,6 +53,11 @@ export class MovieCarouselComponent implements OnInit {
   selectedContent: string | null = null;
   selectedMovieData: any = {};
 
+  dialogDimensions: { maxWidth: string; maxHeight: string } = {
+    maxWidth: '60vw',
+    maxHeight: '90vh',
+  };
+
   constructor(private cardService: CardsService) {}
 
   ngOnInit(): void {
@@ -62,16 +68,39 @@ export class MovieCarouselComponent implements OnInit {
         this.sliderContainer.nativeElement.scrollLeft += event.deltaY;
       }
     );
+
+    this.updateDialogDimensions();
   }
+
   dialog = inject(MatDialog);
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updateDialogDimensions();
+  }
+
+  updateDialogDimensions() {
+    const width = window.innerWidth;
+    if (width < 768) {
+      this.dialogDimensions = {
+        maxWidth: '98vw',
+        maxHeight: '98vh',
+      };
+    } else {
+      this.dialogDimensions = {
+        maxWidth: '60vw',
+        maxHeight: '90vh',
+      };
+    }
+  }
 
   openDialog(movie: any) {
     this.dialog.open(MovieModalComponent, {
       data: movie,
       // height: '90vh',
       // width: '60vw',
-      maxHeight: '90vh',
-      maxWidth: '60vw',
+      maxHeight: this.dialogDimensions.maxHeight,
+      maxWidth: this.dialogDimensions.maxWidth,
       panelClass: 'custom-dialog-container',
     });
   }
